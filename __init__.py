@@ -29,10 +29,13 @@ class CameraFrustumSettings(bpy.types.PropertyGroup):
                                     name='Density',
                                     description='Camera frustum point density')
 
-    distribution: bpy.props.EnumProperty(items=(('Random',)*3, ('Grid',)*3, ('Trail',)*3),
-                                  default='Random',
-                                  name='Distribution',
-                                  description='How the points will be arranged')
+    distribution: bpy.props.EnumProperty(
+        items=(('RANDOM', 'Random', 'Use a random pattern. Call multiple times to increase density'),
+               ('GRID', 'Grid', 'Use the same grid pattern at each frame'),
+               ('TRAIL', 'Trail', 'Use the same random points at each frame, so they leave a trail when the camera moves')),
+        default='RANDOM',
+        name='Distribution',
+        description='How the points will be arranged')
 
 
 class CameraFrustumCameraSettings(bpy.types.PropertyGroup):

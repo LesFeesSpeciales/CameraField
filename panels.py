@@ -18,7 +18,7 @@ class CAMERA_PT_FrustumPanel(bpy.types.Panel):
 
         layout.separator()
         layout.operator("camerafield.view_field", icon='RENDER_ANIMATION')
-        layout.operator("camerafield.bake_to_object")
+        layout.operator("camerafield.bake_to_object", icon='POINTCLOUD_DATA')
 
 
 class CAMERA_PT_FrustumCameraPanel(bpy.types.Panel):

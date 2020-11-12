@@ -85,7 +85,7 @@ class CAMERA_OT_view_camera_field(bpy.types.Operator):
 
                 for i in range(scene.frame_start, scene.frame_end + 1):
                     scene.frame_set(i)
-                    if scene.camera_frustum_settings.distribution == 'Trail':
+                    if scene.camera_frustum_settings.distribution == 'TRAIL':
                         # Use the same seed at each frame, so each ray ends up
                         # at the same point in camera space, leaving a trail
                         random.seed(seed)
@@ -109,12 +109,12 @@ class CAMERA_OT_view_camera_field(bpy.types.Operator):
                     vector_x = frame[0] - frame[3]
                     vector_y = frame[2] - frame[3]
 
-                    if scene.camera_frustum_settings.distribution in {'Random', 'Trail'}:
+                    if scene.camera_frustum_settings.distribution in {'RANDOM', 'TRAIL'}:
                         points = [(random.random(), random.random())
                                   for z in range(density)
                                   ]
 
-                    elif scene.camera_frustum_settings.distribution == 'Grid':
+                    elif scene.camera_frustum_settings.distribution == 'GRID':
                         density_x = sqrt(density) / sqrt(ratio)
                         density_y = sqrt(density) * sqrt(ratio)
 
