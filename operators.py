@@ -75,6 +75,7 @@ class CAMERA_OT_view_camera_field(bpy.types.Operator):
             ratio = context.scene.render.resolution_y / context.scene.render.resolution_x
 
             seed = time()  # Different seed at each execution
+            random.seed(seed)  # Use a predictable seed
 
             for cam in cams:
                 cam_color = cam.data.camera_frustum_settings.color
@@ -84,7 +85,10 @@ class CAMERA_OT_view_camera_field(bpy.types.Operator):
 
                 for i in range(scene.frame_start, scene.frame_end + 1):
                     scene.frame_set(i)
-                    random.seed(seed)  # Use a predictable seed
+                    if scene.camera_frustum_settings.distribution == 'Trail':
+                        # Use the same seed at each frame, so each ray ends up
+                        # at the same point in camera space, leaving a trail
+                        random.seed(seed)
 
                     if not cam.data.camera_frustum_settings.enable:
                         continue
@@ -105,7 +109,7 @@ class CAMERA_OT_view_camera_field(bpy.types.Operator):
                     vector_x = frame[0] - frame[3]
                     vector_y = frame[2] - frame[3]
 
-                    if scene.camera_frustum_settings.distribution == 'Random':
+                    if scene.camera_frustum_settings.distribution in {'Random', 'Trail'}:
                         points = [(random.random(), random.random())
                                   for z in range(density)
                                   ]
