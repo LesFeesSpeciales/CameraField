@@ -129,9 +129,9 @@ class CAMERA_OT_view_camera_field(bpy.types.Operator):
                             point = (frame[3] + vector_x * x + vector_y * y)
 
                             if cam.data.type == 'PERSP':
-                                ray = scene.ray_cast(context.view_layer, cam_coord, point - cam_coord)
+                                ray = scene.ray_cast(context.view_layer.depsgraph, cam_coord, point - cam_coord)
                             elif cam.data.type == 'ORTHO':
-                                ray = scene.ray_cast(context.view_layer, point, -cam_direction)
+                                ray = scene.ray_cast(context.view_layer.depsgraph, point, -cam_direction)
 
                             if ray[0]:
                                 ray_closer = ray[1] + (point-ray[1]).normalized() * 0.02
